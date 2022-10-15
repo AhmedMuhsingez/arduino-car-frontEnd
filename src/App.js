@@ -30,7 +30,7 @@ export default function App() {
 		const res = await fetch(`/distance`)
 		setData(await res.json())
 	}
-	const commit = boolean
+	const test = Boolean
 	return (
 		<div
 			style={{
