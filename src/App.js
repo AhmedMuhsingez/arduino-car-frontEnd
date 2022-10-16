@@ -4,6 +4,8 @@ import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward"
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward"
 import ArrowBackIcon from "@mui/icons-material/ArrowBack"
 import CancelIcon from "@mui/icons-material/Cancel"
+import Slider from "@mui/material/Slider"
+
 export default function App() {
 	const value1 = "forward"
 	const value2 = "backward"
@@ -31,6 +33,14 @@ export default function App() {
 		setData(await res.json())
 	}
 	const test = Boolean
+	const speedContainer = {
+		display: "flex",
+		flexDirection: "column",
+		alignItems: "center",
+		justifyContent: "center",
+		width: "100%",
+		fontSize: 28,
+	}
 	return (
 		<div
 			style={{
@@ -42,12 +52,13 @@ export default function App() {
 				backgroundColor: "#F0F2F5",
 			}}
 		>
+			{/* buttons */}
 			<div
 				className="buttonsContainer"
 				style={{
 					display: "flex",
 					justifyContent: "space-around",
-					height: "100%",
+					// height: "100%",
 					alignItems: "center",
 				}}
 			>
@@ -141,12 +152,25 @@ export default function App() {
 					</button>
 				</div>
 			</div>
+
+			{/* speed handler */}
+			<div style={speedContainer}>
+				<div>Speed slider</div>
+				<Slider
+					size="small"
+					defaultValue={70}
+					aria-label="Small"
+					valueLabelDisplay="auto"
+					style={{ width: "20%", marginTop: 32 }}
+				/>
+			</div>
+
+			{/* values */}
 			<div
 				className="valuesContainer"
 				style={{
 					display: "flex",
 					justifyContent: "center",
-					marginBottom: "10%",
 				}}
 			>
 				<div className="frontSensor">
