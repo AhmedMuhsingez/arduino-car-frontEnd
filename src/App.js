@@ -18,7 +18,11 @@ export default function App() {
 	const [data, setData] = React.useState({})
 	const [speed, setSpeed] = React.useState("")
 
+	const handleSpeed = async (value) => {
+		await fetch(`/${value}`, { method: "post" })
+	}
 	const handleRadioChange = (event) => {
+		handleSpeed(event.target.value)
 		setSpeed(event.target.value)
 	}
 
@@ -43,11 +47,6 @@ export default function App() {
 
 	console.log(speed)
 
-	// const handleSpeed = async (value) => {
-	// 	const res = await fetch(`/speed`)
-	// 	setSpeed(await res.json())
-	// }
-
 	//Style:
 	const speedContainer = {
 		display: "flex",
@@ -66,6 +65,7 @@ export default function App() {
 		fontSize: 28,
 		marginBottom: 22,
 	}
+
 	return (
 		<div
 			style={{
@@ -83,7 +83,6 @@ export default function App() {
 				style={{
 					display: "flex",
 					justifyContent: "space-around",
-					// height: "100%",
 					alignItems: "center",
 				}}
 			>
