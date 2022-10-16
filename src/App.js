@@ -4,7 +4,9 @@ import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward"
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward"
 import ArrowBackIcon from "@mui/icons-material/ArrowBack"
 import CancelIcon from "@mui/icons-material/Cancel"
-import Slider from "@mui/material/Slider"
+import Radio from "@mui/material/Radio"
+import RadioGroup from "@mui/material/RadioGroup"
+import FormControlLabel from "@mui/material/FormControlLabel"
 
 export default function App() {
 	const value1 = "forward"
@@ -12,7 +14,13 @@ export default function App() {
 	const value3 = "right"
 	const value4 = "left"
 	const value5 = "stop"
+
 	const [data, setData] = React.useState({})
+	const [speed, setSpeed] = React.useState("")
+
+	const handleRadioChange = (event) => {
+		setSpeed(event.target.value)
+	}
 
 	React.useEffect(() => {
 		const inn = setInterval(() => {
@@ -32,7 +40,15 @@ export default function App() {
 		const res = await fetch(`/distance`)
 		setData(await res.json())
 	}
-	const test = Boolean
+
+	console.log(speed)
+
+	// const handleSpeed = async (value) => {
+	// 	const res = await fetch(`/speed`)
+	// 	setSpeed(await res.json())
+	// }
+
+	//Style:
 	const speedContainer = {
 		display: "flex",
 		flexDirection: "column",
@@ -40,6 +56,15 @@ export default function App() {
 		justifyContent: "center",
 		width: "100%",
 		fontSize: 28,
+	}
+
+	const speedControlTitle = {
+		display: "flex",
+		width: "100%",
+		justifyContent: "center",
+		alignItems: "center",
+		fontSize: 28,
+		marginBottom: 22,
 	}
 	return (
 		<div
@@ -155,14 +180,21 @@ export default function App() {
 
 			{/* speed handler */}
 			<div style={speedContainer}>
-				<div>Speed slider</div>
-				<Slider
-					size="small"
-					defaultValue={70}
-					aria-label="Small"
-					valueLabelDisplay="auto"
-					style={{ width: "20%", marginTop: 32 }}
-				/>
+				<div style={{ marginTop: 32 }}>
+					<div style={speedControlTitle}>Speed Control</div>
+					<RadioGroup
+						row
+						aria-labelledby="demo-row-radio-buttons-group-label"
+						name="row-radio-buttons-group"
+						value={speed}
+						onChange={handleRadioChange}
+					>
+						<FormControlLabel value={"Lowest"} control={<Radio />} label="Lowest" />
+						<FormControlLabel value={"Low"} control={<Radio />} label="Low" />
+						<FormControlLabel value={"Medium"} control={<Radio />} label="Medium" />
+						<FormControlLabel value={"High"} control={<Radio />} label="High" />
+					</RadioGroup>
+				</div>
 			</div>
 
 			{/* values */}
