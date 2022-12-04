@@ -1,51 +1,51 @@
-import React from "react"
-import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward"
-import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward"
-import ArrowForwardIcon from "@mui/icons-material/ArrowForward"
-import ArrowBackIcon from "@mui/icons-material/ArrowBack"
-import CancelIcon from "@mui/icons-material/Cancel"
-import Radio from "@mui/material/Radio"
-import RadioGroup from "@mui/material/RadioGroup"
-import FormControlLabel from "@mui/material/FormControlLabel"
+import React from "react";
+import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
+import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
+import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import CancelIcon from "@mui/icons-material/Cancel";
+import Radio from "@mui/material/Radio";
+import RadioGroup from "@mui/material/RadioGroup";
+import FormControlLabel from "@mui/material/FormControlLabel";
 
 export default function App() {
-	const value1 = "forward"
-	const value2 = "backward"
-	const value3 = "right"
-	const value4 = "left"
-	const value5 = "stop"
+	const value1 = "forward";
+	const value2 = "backward";
+	const value3 = "right";
+	const value4 = "left";
+	const value5 = "stop";
 
-	const [data, setData] = React.useState({})
-	const [speed, setSpeed] = React.useState("")
+	const [data, setData] = React.useState({});
+	const [speed, setSpeed] = React.useState("");
 
 	const handleSpeed = async (value) => {
-		await fetch(`/${value}`, { method: "post" })
-	}
+		await fetch(`/${value}`, { method: "post" });
+	};
 	const handleRadioChange = (event) => {
-		handleSpeed(event.target.value)
-		setSpeed(event.target.value)
-	}
+		handleSpeed(event.target.value);
+		setSpeed(event.target.value);
+	};
 
 	React.useEffect(() => {
 		const inn = setInterval(() => {
-			handleDistance()
-		}, 1200)
+			handleDistance();
+		}, 1200);
 
 		return () => {
-			clearInterval(inn)
-		}
-	}, [])
+			clearInterval(inn);
+		};
+	}, []);
 
 	const handleState = async (value) => {
-		await fetch(`/${value}`, { method: "post" })
-	}
+		await fetch(`/${value}`, { method: "post" });
+	};
 
 	const handleDistance = async (value) => {
-		const res = await fetch(`/distance`)
-		setData(await res.json())
-	}
+		const res = await fetch(`/distance`);
+		setData(await res.json());
+	};
 
-	console.log(speed)
+	console.log(speed);
 
 	//Style:
 	const speedContainer = {
@@ -55,7 +55,7 @@ export default function App() {
 		justifyContent: "center",
 		width: "100%",
 		fontSize: 28,
-	}
+	};
 
 	const speedControlTitle = {
 		display: "flex",
@@ -64,7 +64,7 @@ export default function App() {
 		alignItems: "center",
 		fontSize: 28,
 		marginBottom: 22,
-	}
+	};
 
 	return (
 		<div
@@ -90,7 +90,7 @@ export default function App() {
 					<button
 						type="button"
 						onClick={() => {
-							handleState(value1)
+							handleState(value4);
 						}}
 						style={{
 							padding: 8,
@@ -108,7 +108,7 @@ export default function App() {
 						<button
 							type="button"
 							onClick={() => {
-								handleState(value3)
+								handleState(value3);
 							}}
 							style={{
 								padding: 8,
@@ -125,7 +125,7 @@ export default function App() {
 						<button
 							type="button"
 							onClick={() => {
-								handleState(value5)
+								handleState(value5);
 							}}
 							style={{
 								padding: 8,
@@ -143,7 +143,7 @@ export default function App() {
 						<button
 							type="button"
 							onClick={() => {
-								handleState(value4)
+								handleState(value2);
 							}}
 							style={{
 								padding: 8,
@@ -161,7 +161,7 @@ export default function App() {
 					<button
 						type="button"
 						onClick={() => {
-							handleState(value2)
+							handleState(value3);
 						}}
 						style={{
 							padding: 8,
@@ -218,5 +218,5 @@ export default function App() {
 				</div>
 			</div>
 		</div>
-	)
+	);
 }
