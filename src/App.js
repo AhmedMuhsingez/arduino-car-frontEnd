@@ -26,24 +26,24 @@ export default function App() {
 		setSpeed(event.target.value);
 	};
 
-	React.useEffect(() => {
-		const inn = setInterval(() => {
-			handleDistance();
-		}, 1200);
+	// React.useEffect(() => {
+	// 	const inn = setInterval(() => {
+	// 		handleDistance();
+	// 	}, 1200);
 
-		return () => {
-			clearInterval(inn);
-		};
-	}, []);
+	// 	return () => {
+	// 		clearInterval(inn);
+	// 	};
+	// }, []);
 
 	const handleState = async (value) => {
 		await fetch(`/${value}`, { method: "post" });
 	};
 
-	const handleDistance = async (value) => {
-		const res = await fetch(`/distance`);
-		setData(await res.json());
-	};
+	// const handleDistance = async (value) => {
+	// 	const res = await fetch(`/distance`);
+	// 	setData(await res.json());
+	// };
 
 	console.log(speed);
 
@@ -90,7 +90,7 @@ export default function App() {
 					<button
 						type="button"
 						onClick={() => {
-							handleState(value4);
+							handleState(value3);
 						}}
 						style={{
 							padding: 8,
@@ -108,7 +108,7 @@ export default function App() {
 						<button
 							type="button"
 							onClick={() => {
-								handleState(value3);
+								handleState(value1);
 							}}
 							style={{
 								padding: 8,
@@ -161,7 +161,7 @@ export default function App() {
 					<button
 						type="button"
 						onClick={() => {
-							handleState(value3);
+							handleState(value4);
 						}}
 						style={{
 							padding: 8,
@@ -197,7 +197,7 @@ export default function App() {
 			</div>
 
 			{/* values */}
-			<div
+			{/* <div
 				className="valuesContainer"
 				style={{
 					display: "flex",
@@ -216,7 +216,7 @@ export default function App() {
 					Distance from the left sensor:
 					{data ? (data[2] <= 15 ? " " + data[2] + " cm" : " Null") : "Null"}
 				</div>
-			</div>
+			</div> */}
 		</div>
 	);
 }
