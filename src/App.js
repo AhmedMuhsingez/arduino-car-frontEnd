@@ -35,14 +35,18 @@ export default function App() {
 		setData(await res.json());
 	};
 
-	React.useEffect(() => {
-		const inn = setInterval(() => {
-			handleDistance();
-		}, 1500);
+	// React.useEffect(() => {
+	// 	const inn = setInterval(() => {
+	// 		handleDistance();
+	// 	}, 1500);
 
-		return () => {
-			clearInterval(inn);
-		};
+	// 	return () => {
+	// 		clearInterval(inn);
+	// 	};
+	// }, [data]);
+
+	React.useEffect(() => {
+		handleDistance();
 	}, [data]);
 
 	React.useEffect(() => {
