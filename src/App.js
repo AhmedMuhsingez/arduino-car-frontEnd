@@ -45,6 +45,15 @@ export default function App() {
 		};
 	}, [data]);
 
+	React.useEffect(() => {
+		const x = setInterval(() => {
+			data[0] <= 8 && fetch(`/${value5}`, { method: "post" });
+		}, 1500);
+		return () => {
+			clearInterval(x);
+		};
+	});
+
 	console.log("dis1", data[0], "dis2", data[1], "dis3", data[2]);
 
 	//Style:
@@ -206,15 +215,16 @@ export default function App() {
 			>
 				<div className="frontSensor">
 					Distance from the right sensor:
-					{data ? (data[0] <= 15 ? " " + data[0] + " cm" : " Too Far") : "Null"}
+					{/* {data ? (data[0] <= 15 ? " " + data[0] + " cm" : " Too Far") : "Null"} */}
+					{/* {data ? data[0] + " cm" : "Null"} */}
 				</div>
-				<div className="backSensor" style={{ margin: "0px 32px" }}>
+				<div className="frontSensor" style={{ margin: "0px 32px" }}>
 					Distance from the front sensor:
-					{data ? (data[1] <= 15 ? " " + data[1] + " cm" : " Too Far") : "Null"}
+					{data ? data[0] + " cm" : "Null"}
 				</div>
 				<div className="rightSensor">
 					Distance from the left sensor:
-					{data ? (data[2] <= 15 ? " " + data[2] + " cm" : " Too Far") : "Null"}
+					{/* {data ? data[2] + " cm" : "Null"} */}
 				</div>
 			</div>
 		</div>
