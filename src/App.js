@@ -26,24 +26,26 @@ export default function App() {
 		setSpeed(event.target.value);
 	};
 
-	React.useEffect(() => {
-		const inn = setInterval(() => {
-			handleDistance();
-		}, 1200);
-
-		return () => {
-			clearInterval(inn);
-		};
-	}, []);
-
 	const handleState = async (value) => {
 		await fetch(`/${value}`, { method: "post" });
 	};
 
-	const handleDistance = async (value) => {
+	const handleDistance = async () => {
 		const res = await fetch(`/distance`);
 		setData(await res.json());
 	};
+
+	React.useEffect(() => {
+		const inn = setInterval(() => {
+			handleDistance();
+		}, 1500);
+
+		return () => {
+			clearInterval(inn);
+		};
+	}, [data]);
+
+	console.log("dis1", data[0], "dis2", data[1], "dis3", data[2]);
 
 	//Style:
 	const speedContainer = {
@@ -88,7 +90,7 @@ export default function App() {
 					<button
 						type="button"
 						onClick={() => {
-							handleState(value3);
+							handleState(value4);
 						}}
 						style={{
 							padding: 8,
@@ -159,7 +161,7 @@ export default function App() {
 					<button
 						type="button"
 						onClick={() => {
-							handleState(value4);
+							handleState(value3);
 						}}
 						style={{
 							padding: 8,
@@ -186,10 +188,10 @@ export default function App() {
 						value={speed}
 						onChange={handleRadioChange}
 					>
-						<FormControlLabel value={"Lowest"} control={<Radio />} label="Lowest" />
-						<FormControlLabel value={"Low"} control={<Radio />} label="Low" />
-						<FormControlLabel value={"Medium"} control={<Radio />} label="Medium" />
-						<FormControlLabel value={"High"} control={<Radio />} label="High" />
+						<FormControlLabel value={"lowest"} control={<Radio />} label="Lowest" />
+						<FormControlLabel value={"low"} control={<Radio />} label="Low" />
+						<FormControlLabel value={"medium"} control={<Radio />} label="Medium" />
+						<FormControlLabel value={"high"} control={<Radio />} label="High" />
 					</RadioGroup>
 				</div>
 			</div>
@@ -204,15 +206,15 @@ export default function App() {
 			>
 				<div className="frontSensor">
 					Distance from the right sensor:
-					{data ? (data[0] <= 15 ? " " + data[0] + " cm" : " Null") : "Null"}
+					{data ? (data[0] <= 15 ? " " + data[0] + " cm" : " Too Far") : "Null"}
 				</div>
 				<div className="backSensor" style={{ margin: "0px 32px" }}>
 					Distance from the front sensor:
-					{data ? (data[1] <= 15 ? " " + data[1] + " cm" : " Null") : "Null"}
+					{data ? (data[1] <= 15 ? " " + data[1] + " cm" : " Too Far") : "Null"}
 				</div>
 				<div className="rightSensor">
 					Distance from the left sensor:
-					{data ? (data[2] <= 15 ? " " + data[2] + " cm" : " Null") : "Null"}
+					{data ? (data[2] <= 15 ? " " + data[2] + " cm" : " Too Far") : "Null"}
 				</div>
 			</div>
 		</div>
