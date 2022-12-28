@@ -26,15 +26,15 @@ export default function App() {
 		setSpeed(event.target.value);
 	};
 
-	React.useEffect(() => {
-		const inn = setInterval(() => {
-			handleDistance();
-		}, 1200);
+	// React.useEffect(() => {
+	// 	const inn = setInterval(() => {
+	// 		handleDistance();
+	// 	}, 1200);
 
-		return () => {
-			clearInterval(inn);
-		};
-	}, []);
+	// 	return () => {
+	// 		clearInterval(inn);
+	// 	};
+	// }, []);
 
 	const handleState = async (value) => {
 		await fetch(`/${value}`, { method: "post" });
@@ -44,6 +44,10 @@ export default function App() {
 		const res = await fetch(`/distance`);
 		setData(await res.json());
 	};
+
+	React.useEffect(() => {
+		handleDistance();
+	}, [data]);
 
 	//Style:
 	const speedContainer = {
@@ -204,15 +208,17 @@ export default function App() {
 			>
 				<div className="frontSensor">
 					Distance from the right sensor:
-					{data ? (data[0] <= 15 ? " " + data[0] + " cm" : " Null") : "Null"}
+					{/* {data ? (data[0] <= 15 ? " " + data[0] + " cm" : " Null") : "Null"} */}
 				</div>
 				<div className="frontSensor" style={{ margin: "0px 32px" }}>
 					Distance from the front sensor:
-					{data ? (data[1] <= 15 ? " " + data[1] + " cm" : " Null") : "Null"}
+					{/* {data ? (data[1] <= 15 ? " " + data[1] + " cm" : " Null") : "Null"} */}
+					{/* {data[2]} */}
+					{data ? data[0] : "no data"}
 				</div>
 				<div className="rightSensor">
 					Distance from the left sensor:
-					{data ? (data[2] <= 15 ? " " + data[2] + " cm" : " Null") : "Null"}
+					{/* {data ? (data[2] <= 15 ? " " + data[2] + " cm" : " Null") : "Null"} */}
 				</div>
 			</div>
 		</div>
