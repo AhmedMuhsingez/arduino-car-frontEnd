@@ -43,11 +43,8 @@ export default function App() {
 
 	React.useEffect(() => {
 		handleDistance();
+		data[0] === distanceToStopAt && fetch(`/stop`, { method: "post" });
 	}, [data]);
-
-	const handleCarStopping = async () => {
-		await fetch({ value5 }, { method: "post" });
-	};
 
 	//Style:
 	const speedContainer = {
@@ -224,7 +221,6 @@ export default function App() {
 								color="primary"
 								onClick={(e) => {
 									setIsRunning(true);
-									handleCarStopping();
 								}}
 								disabled={isRunning || distanceToStopAt <= 0}
 							>
@@ -254,7 +250,6 @@ export default function App() {
 					<EditIcon />
 				</IconButton>
 			</div>
-			{/* )} */}
 
 			{/* values */}
 			<div
