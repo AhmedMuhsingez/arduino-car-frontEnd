@@ -7,6 +7,10 @@ import CancelIcon from "@mui/icons-material/Cancel";
 import Radio from "@mui/material/Radio";
 import RadioGroup from "@mui/material/RadioGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
+import TextField from "@mui/material/TextField";
+import IconButton from "@mui/material/IconButton";
+import DoneIcon from "@mui/icons-material/Done";
+import EditIcon from "@mui/icons-material/Edit";
 
 export default function App() {
 	const value1 = "forward";
@@ -17,6 +21,8 @@ export default function App() {
 
 	const [data, setData] = React.useState({});
 	const [speed, setSpeed] = React.useState("");
+	const [distanceToStopAt, setDistanceToStopAt] = React.useState("");
+	const [isRunning, setIsRunning] = React.useState(false);
 
 	const handleSpeed = async (value) => {
 		await fetch(`/${value}`, { method: "post" });
@@ -26,21 +32,11 @@ export default function App() {
 		setSpeed(event.target.value);
 	};
 
-	// React.useEffect(() => {
-	// 	const inn = setInterval(() => {
-	// 		handleDistance();
-	// 	}, 1200);
-
-	// 	return () => {
-	// 		clearInterval(inn);
-	// 	};
-	// }, []);
-
 	const handleState = async (value) => {
 		await fetch(`/${value}`, { method: "post" });
 	};
 
-	const handleDistance = async (value) => {
+	const handleDistance = async () => {
 		const res = await fetch(`/distance`);
 		setData(await res.json());
 	};
@@ -48,6 +44,10 @@ export default function App() {
 	React.useEffect(() => {
 		handleDistance();
 	}, [data]);
+
+	const handleCarStopping = async () => {
+		await fetch({ value5 }, { method: "post" });
+	};
 
 	//Style:
 	const speedContainer = {
@@ -66,6 +66,12 @@ export default function App() {
 		alignItems: "center",
 		fontSize: 28,
 		marginBottom: 22,
+	};
+
+	const userInputContainer = {
+		display: "flex",
+		justifyContent: "center",
+		alignItems: "center",
 	};
 
 	return (
@@ -197,6 +203,58 @@ export default function App() {
 					</RadioGroup>
 				</div>
 			</div>
+
+			<div style={userInputContainer}>
+				<p>Enter the distance you want to the car to stop at in cm:</p>
+				<TextField
+					id="outlined-basic"
+					label="Distance in cm"
+					variant="outlined"
+					onChange={(e) => {
+						setDistanceToStopAt(e.target.value);
+					}}
+					style={{ marginLeft: 16 }}
+					type="number"
+					disabled={isRunning}
+					InputProps={{
+						endAdornment: (
+							<IconButton
+								style={{ margin: "0 6px 0 12px" }}
+								edge="end"
+								color="primary"
+								onClick={(e) => {
+									setIsRunning(true);
+									handleCarStopping();
+								}}
+								disabled={isRunning || distanceToStopAt <= 0}
+							>
+								<DoneIcon />
+							</IconButton>
+						),
+					}}
+				></TextField>
+			</div>
+
+			<div
+				style={{
+					display: "flex",
+					justifyContent: "center",
+					alignItems: "center",
+					opacity: isRunning ? 1 : 0,
+					transition: "all 0.3s ease-in-out",
+				}}
+			>
+				<p>The car will stop at: {distanceToStopAt} cm</p>
+				<IconButton
+					style={{ marginLeft: 12 }}
+					onClick={() => {
+						setIsRunning(false);
+					}}
+				>
+					<EditIcon />
+				</IconButton>
+			</div>
+			{/* )} */}
 
 			{/* values */}
 			<div
